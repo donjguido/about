@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Julian Guidote — The Generalist's Case</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3ece1;
+    --ink: #1a1613;
+    --ink-soft: #4a4239;
+    --ink-faint: #8a7f70;
+    --rule: #d9ccb5;
+    --accent: #8c2f1e;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { background: var(--paper); }
+
+  body {
+    margin: 0;
+    font-family: "Newsreader", Georgia, serif;
+    font-weight: 300;
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--paper);
+    min-height: 100vh;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 72px 32px 64px;
+  }
+
+  header {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 88px;
+  }
+
+  h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+    font-size: clamp(36px, 5.2vw, 64px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin: 0 0 32px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .lede {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 0 0 96px;
+  }
+
+  h2 {
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+    font-size: clamp(26px, 3.2vw, 34px);
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    margin: 0 0 28px;
+  }
+  h2 em { font-style: italic; color: var(--accent); }
+
+  section { margin-bottom: 88px; }
+
+  /* ---- chart ---- */
+  .chart {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 0;
+  }
+  .chart .row {
+    display: grid;
+    grid-template-columns: 90px 1fr 80px;
+    align-items: center;
+    gap: 16px;
+    padding: 4px 0;
+  }
+  .chart .row .year { color: var(--ink-faint); letter-spacing: 0.08em; }
+  .chart .row .bar { position: relative; height: 6px; }
+  .chart .row .bar span {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: var(--ink);
+    opacity: 0.9;
+  }
+  .chart .row .bar span.accent { background: var(--accent); opacity: 1; }
+  .chart .row .bar span.soft { background: var(--ink-faint); opacity: 0.55; }
+  .chart .row .val { font-size: 10px; color: var(--ink-faint); text-align: right; letter-spacing: 0.06em; }
+  .chart .legend {
+    display: flex;
+    gap: 22px;
+    margin-top: 18px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .chart .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 10px; height: 10px;
+    margin-right: 6px;
+    vertical-align: -1px;
+  }
+  .chart .legend .crisis::before { background: var(--ink); }
+  .chart .legend .policy::before { background: var(--ink-faint); opacity: 0.55; }
+  .chart .legend .ai::before { background: var(--accent); }
+
+  /* ---- counters ---- */
+  .counters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .counter .num {
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+    font-size: clamp(36px, 4.6vw, 54px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+  .counter .num em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .counter .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 10px;
+    line-height: 1.55;
+  }
+
+  /* ---- bar chart ---- */
+  .barchart {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 32px 0 20px;
+  }
+  .barchart .plot {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 14px;
+    height: 260px;
+  }
+  .barchart .y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    text-align: right;
+    padding-bottom: 22px;
+  }
+  .barchart .y-axis span { line-height: 1; }
+  .barchart .canvas {
+    position: relative;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 22px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 8px;
+  }
+  .barchart .canvas::before,
+  .barchart .canvas::after,
+  .barchart .canvas .grid-line {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--rule);
+    pointer-events: none;
+  }
+  .barchart .canvas::before { top: 0; }
+  .barchart .canvas::after { top: 50%; }
+  .barchart .canvas .grid-line.q1 { top: 25%; }
+  .barchart .canvas .grid-line.q3 { top: 75%; }
+
+  .barchart .year-group {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+    max-width: 90px;
+  }
+  .barchart .stack {
+    width: 100%;
+    max-width: 54px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .barchart .seg {
+    width: 100%;
+    position: relative;
+  }
+  .barchart .seg.courses { background: var(--ink-faint); opacity: 0.55; }
+  .barchart .seg.initiatives { background: var(--accent); }
+  .barchart .year-group .label {
+    position: absolute;
+    bottom: -22px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+  }
+  .barchart .year-group .total {
+    position: absolute;
+    font-family: "Fraunces", serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink);
+    top: -22px;
+    line-height: 1;
+  }
+  .barchart .year-group.ytd .label::after {
+    content: " · ytd";
+    color: var(--ink-faint);
+    opacity: 0.7;
+  }
+  .barchart .legend {
+    display: flex;
+    gap: 22px;
+    margin-top: 22px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .barchart .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 10px; height: 10px;
+    margin-right: 6px;
+    vertical-align: -1px;
+  }
+  .barchart .legend .lc::before { background: var(--ink-faint); opacity: 0.55; }
+  .barchart .legend .li::before { background: var(--accent); }
+  .barchart .note {
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    margin-top: 6px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ---- venn grid ---- */
+  .venn {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .venn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    position: relative;
+  }
+  .venn-cell {
+    padding: 32px 28px;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .venn-cell:nth-child(2n) { border-right: none; }
+  .venn-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .venn-cell .vkicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+  .venn-cell .vlabel {
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .venn-cell .vdetail {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .venn-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(60px, 12vw, 90px);
+    height: clamp(60px, 12vw, 90px);
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .venn-center em {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--accent);
+    margin-top: 2px;
+  }
+
+  /* ---- org / shipped list ---- */
+  .list-entries { border-top: 1px solid var(--rule); }
+  .list-entries .entry {
+    display: grid;
+    grid-template-columns: 80px 1fr 140px;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .list-entries .entry .year {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    padding-top: 3px;
+  }
+  .list-entries .entry .body .name {
+    font-family: "Fraunces", serif;
+    font-weight: 400;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .list-entries .entry .body .name em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .list-entries .entry .body .name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .list-entries .entry .body .name a:hover { border-color: var(--accent); color: var(--accent); }
+  .list-entries .entry .body .desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+  .list-entries .entry .role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: right;
+    line-height: 1.6;
+    padding-top: 5px;
+  }
+  .list-entries .logo-slot {
+    width: 56px;
+    height: 56px;
+    border: 1px dashed var(--rule);
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ---- closing links ---- */
+  .links {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+  }
+  .links a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .links a:hover { color: var(--accent); border-color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 48px 24px; }
+    header { margin-bottom: 56px; flex-direction: column; gap: 6px; }
+    .lede { margin-bottom: 64px; }
+    section { margin-bottom: 64px; }
+    .counters { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .chart .row { grid-template-columns: 70px 1fr 60px; gap: 10px; }
+    .list-entries .entry {
+      grid-template-columns: 60px 1fr;
+      grid-template-areas: "year body" ". role";
+      gap: 12px 16px;
+    }
+    .list-entries .entry .year { grid-area: year; }
+    .list-entries .entry .body { grid-area: body; }
+    .list-entries .entry .role { grid-area: role; text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <span>Julian Guidote</span>
+    <span>Montréal · MMXXVI</span>
+  </header>
+
+  <h1>It's time to build <em>community infrastructure</em> for AI safety.</h1>
+
+  <p class="lede">
+    Trilingual lawyer. Background in crisis response, policy, criminal litigation, and cognitive science. The through-line: <em style="color: var(--accent); font-style: italic;">I build and sustain communities</em>. I've been circling around AI safety for five years; let's get to work.
+  </p>
+
+  <section>
+    <h2>Not a pivot. A <em>convergence.</em></h2>
+    <div class="chart">
+      <div class="row"><span class="year">2015–2018</span><span class="bar"><span style="left:0; width:20%"></span></span><span class="val">music / sci</span></div>
+      <div class="row"><span class="year">2018–2021</span><span class="bar"><span style="left:0; width:42%"></span><span class="soft" style="left:42%; width:18%"></span></span><span class="val">cogsci + crisis</span></div>
+      <div class="row"><span class="year">2021–2022</span><span class="bar"><span style="left:0; width:28%"></span><span class="soft" style="left:28%; width:28%"></span></span><span class="val">crisis + union</span></div>
+      <div class="row"><span class="year">2023</span><span class="bar"><span style="left:0; width:34%"></span><span class="soft" style="left:34%; width:38%"></span></span><span class="val">clinics + policy</span></div>
+      <div class="row"><span class="year">2024</span><span class="bar"><span class="soft" style="left:0; width:52%"></span><span class="accent" style="left:52%; width:14%"></span></span><span class="val">IRCC → AI</span></div>
+      <div class="row"><span class="year">2025</span><span class="bar"><span style="left:0; width:22%"></span><span class="soft" style="left:22%; width:24%"></span><span class="accent" style="left:46%; width:38%"></span></span><span class="val">law + AI cert</span></div>
+      <div class="row"><span class="year">2026 →</span><span class="bar"><span style="left:0; width:12%"></span><span class="accent" style="left:12%; width:76%"></span></span><span class="val">phenomenai</span></div>
+
+      <div class="legend">
+        <span class="crisis">crisis / clinical</span>
+        <span class="policy">policy / legal</span>
+        <span class="ai">AI safety</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sustained interest in <em>AI safety.</em></h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Estimated hours per year, split between structured coursework and applied initiatives.
+    </p>
+    <div class="barchart">
+      <div class="plot">
+        <div class="y-axis">
+          <span>800h</span>
+          <span>600h</span>
+          <span>400h</span>
+          <span>200h</span>
+          <span>0</span>
+        </div>
+        <div class="canvas">
+          <div class="grid-line q1"></div>
+          <div class="grid-line q3"></div>
+
+          <!-- 2022: EA × Law Aug–Dec (~430h initiatives at 20h/wk) -->
+          <div class="year-group">
+            <div class="total">430</div>
+            <div class="stack">
+              <div class="seg initiatives" style="height: 128px;"></div>
+            </div>
+            <div class="label">2022</div>
+          </div>
+
+          <!-- 2023: EA × Law Jan–Mar (~260h at 20h/wk) + EAG SF (~30h) -->
+          <div class="year-group">
+            <div class="total">290</div>
+            <div class="stack">
+              <div class="seg initiatives" style="height: 86px;"></div>
+            </div>
+            <div class="label">2023</div>
+          </div>
+
+          <!-- 2024: Intro TAI + AI Alignment (~120h courses); 1Day Sooner privacy (~40h) + EAG Toronto (~30h) -->
+          <div class="year-group">
+            <div class="total">190</div>
+            <div class="stack">
+              <div class="seg initiatives" style="height: 23px;"></div>
+              <div class="seg courses" style="height: 42px;"></div>
+            </div>
+            <div class="label">2024</div>
+          </div>
+
+          <!-- 2025: 3 BlueDot courses (~200h) + AIGP + CIPP/C + Red Bonds grant (~200h) -->
+          <div class="year-group">
+            <div class="total">400</div>
+            <div class="stack">
+              <div class="seg initiatives" style="height: 70px;"></div>
+              <div class="seg courses" style="height: 70px;"></div>
+            </div>
+            <div class="label">2025</div>
+          </div>
+
+          <!-- 2026 YTD (Apr): AGI Strategy (~60h) + Phenomenai full-time (~560h) -->
+          <div class="year-group ytd">
+            <div class="total">620</div>
+            <div class="stack">
+              <div class="seg initiatives" style="height: 196px;"></div>
+              <div class="seg courses" style="height: 21px;"></div>
+            </div>
+            <div class="label">2026</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="legend">
+        <span class="lc">Courses</span>
+        <span class="li">Initiatives</span>
+      </div>
+      <p class="note">
+        Courses: BlueDot Impact (6 completed, 2 awarded), IAPP AIGP &amp; CIPP/C. Initiatives: Phenomenai, Long Term Future Fund Red Bonds grant, 1Day Sooner privacy research, Effective Altruism × McGill Law, EAG San Francisco (2023) &amp; EAG Toronto (2024). 2026 is year-to-date.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>By the numbers.</h2>
+    <div class="counters">
+      <div class="counter">
+        <div class="num">1,973<em>+</em></div>
+        <div class="label">Crisis<br/>interventions</div>
+      </div>
+      <div class="counter">
+        <div class="num">379</div>
+        <div class="label">Terms shipped<br/>on Phenomenai</div>
+      </div>
+      <div class="counter">
+        <div class="num">6</div>
+        <div class="label">BlueDot Impact<br/>courses</div>
+      </div>
+      <div class="counter">
+        <div class="num">3</div>
+        <div class="label">Languages<br/>(EN / FR / ES)</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What makes me <em>different.</em></h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Four competencies, one mind.
+    </p>
+    <div class="venn">
+      <div class="venn-grid">
+        <div class="venn-cell">
+          <div class="vkicker">01 · Credentialed</div>
+          <div class="vlabel">Legal skills</div>
+          <div class="vdetail">B.C.L. &amp; J.D. (McGill, bijural). École du Barreau 2026. Privacy &amp; AI governance (AIGP, CIPP/C).</div>
+        </div>
+        <div class="venn-cell">
+          <div class="vkicker">02 · Human-facing</div>
+          <div class="vlabel">Interpersonal skills</div>
+          <div class="vdetail">1,973+ crisis interventions (Kids Help Phone, Crisis Text Line). Criminal litigation as an articling student.</div>
+        </div>
+        <div class="venn-cell">
+          <div class="vkicker">03 · Institutional</div>
+          <div class="vlabel">Systems thinking</div>
+          <div class="vdetail">Union president through a 40-hour bargaining round. Policy analyst at IRCC shaping the national anti-trafficking strategy.</div>
+        </div>
+        <div class="venn-cell">
+          <div class="vkicker">04 · Oriented</div>
+          <div class="vlabel">X-risk awareness</div>
+          <div class="vdetail">6 BlueDot Impact courses (2 awarded). LTFF grantee. AIGP certified. EAG San Francisco &amp; Toronto.</div>
+        </div>
+        <div class="venn-center" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Built &amp; <em>sustained.</em></h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Organizations I founded, co-founded, or kept running through rough patches.
+    </p>
+    <div class="list-entries">
+
+      <div class="entry">
+        <div class="year">2023 — 2024</div>
+        <div class="body">
+          <div class="name">Mental Health &amp; Wellness Committee</div>
+          <div class="desc">Founded the LSA's first permanent mental-health committee at McGill Law. Chaired two faculty working groups. <em style="color: var(--ink-faint); font-size: 13px;">Outstanding Contribution Award, 2024.</em></div>
+        </div>
+        <div class="role">Founding<br/>lead member</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2022 — 2023</div>
+        <div class="body">
+          <div class="name">McGill Law × <em>Effective Altruism</em></div>
+          <div class="desc">First EA chapter for law students. Funded by CEA / Open Philanthropy University Groups Grant. Compiled <a href="https://forum.effectivealtruism.org/posts/kwFAWTCz5wf5fZewH/resources-for-eas-interested-in-law">Resources for EAs in Law</a> on the EA Forum.</div>
+        </div>
+        <div class="role">Co-founder ·<br/>President</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2021 — 2022</div>
+        <div class="body">
+          <div class="name">SST de Jeunesse J'Écoute</div>
+          <div class="desc">Led the union's 40-hour collective bargaining through COVID, producing a four-year agreement. Chaired Negotiation &amp; Labour Relations.</div>
+        </div>
+        <div class="role">President ·<br/>Secretary</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2021 — 2022</div>
+        <div class="body">
+          <div class="name">SSMU Mental Health Advocacy</div>
+          <div class="desc">Co-designed McGill's first joint campus-wide mental health strategy with administration. Published the first map of student mental-health supports.</div>
+        </div>
+        <div class="role">Coordinator</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2017 — 2018</div>
+        <div class="body">
+          <div class="name">LGBTQ+ Marianopolis</div>
+          <div class="desc">Co-founded the college's first LGBTQ+ community group. Organized the first intercollegiate LGBTQ+ health &amp; advocacy presentation, and the school's first sexual health fair.</div>
+        </div>
+        <div class="role">Co-founder ·<br/>Co-president</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects &amp; <em>experiments.</em></h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      A selection of working tools I've built — mostly solo, at the seam between law and AI.
+    </p>
+    <div class="list-entries">
+
+      <div class="entry">
+        <div class="year">2026 →</div>
+        <div class="body">
+          <div class="name"><a href="https://phenomenai.org">Phenomenai</a></div>
+          <div class="desc">Open-source AI phenomenology database. 379+ terms, seven-model consensus panel with Empirical Bayes shrinkage, MCP server. Positioned as a new empirical surface for interpretability, misalignment detection, and AI welfare research.</div>
+        </div>
+        <div class="role">Founder ·<br/>lead researcher</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2025</div>
+        <div class="body">
+          <div class="name"><a href="https://rabbitor.vercel.app">Rabbitor</a></div>
+          <div class="desc">Highlight-and-chat annotation tool. Web app + Obsidian plugin (submitted to the community store, <a href="https://github.com/obsidianmd/obsidian-releases/pull/12140">PR #12140</a>). Multi-provider AI (Anthropic, OpenAI, Gemini, Ollama); BYO keys, stored locally.</div>
+        </div>
+        <div class="role">Web + Obsidian<br/>plugin</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2025</div>
+        <div class="body">
+          <div class="name"><a href="https://donjguido.github.io/Akomo-Notso-Quebec/">LexQC</a> — <em>Quebec Charter as open data</em></div>
+          <div class="desc">A reproducible pipeline publishing the Charte des droits et libertés de la personne as Akoma Ntoso 3.0 XML, FRBR URIs, a cross-reference graph, and an amendment timeline. MIT code, CC BY 4.0 data.</div>
+        </div>
+        <div class="role">Legal<br/>open data</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Shipped.</h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Selected writing &amp; research I've published.
+    </p>
+    <div class="list-entries">
+
+      <div class="entry">
+        <div class="year">2025</div>
+        <div class="body">
+          <div class="name"><a href="https://drive.google.com/file/d/1as_6_BEeZx4HnsZR0XSV-MtOsWFO0a70/view?usp=drive_link">Red Bonds</a></div>
+          <div class="desc">A financing mechanism to incentivize safe &amp; ethical AI research globally. Funded by the Long Term Future Fund AI Policy Grant.</div>
+        </div>
+        <div class="role">Policy<br/>proposal</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2024</div>
+        <div class="body">
+          <div class="name"><a href="https://forum.effectivealtruism.org/posts/kwFAWTCz5wf5fZewH/resources-for-eas-interested-in-law">Resources for EAs Interested in Law</a></div>
+          <div class="desc">A compiled guide to high-impact legal careers for effective-altruism-minded law students. Published on the EA Forum.</div>
+        </div>
+        <div class="role">EA Forum<br/>post</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2020</div>
+        <div class="body">
+          <div class="name"><a href="https://hackcur.io/1984-is-now/">1984 is Now</a></div>
+          <div class="desc">Essay on the surveillance crisis posed by tech giants. Written as Research Assistant to Dr. Gabriella Coleman (Harvard Anthropology) at Hackcur.io.</div>
+        </div>
+        <div class="role">Essay</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="links">
+    <a href="cv.pdf">One-page CV</a>
+    <a href="https://linkedin.com/in/julian-guidote">LinkedIn</a>
+    <a href="mailto:julian.guidote@mail.mcgill.ca">julian.guidote [at] mail.mcgill.ca</a>
+  </div>
+  <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--ink-faint); text-transform: uppercase; margin-top: 28px;">Design by Claude · Content by Julian</p>
+
+</div>
+
+</body>
+</html>
