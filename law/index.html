@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Julian Guidote — The Legal Researcher's Case</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3ece1;
+    --ink: #1a1613;
+    --ink-soft: #4a4239;
+    --ink-faint: #8a7f70;
+    --rule: #d9ccb5;
+    --accent: #8c2f1e;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { background: var(--paper); }
+
+  body {
+    margin: 0;
+    font-family: "Newsreader", Georgia, serif;
+    font-weight: 300;
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--paper);
+    min-height: 100vh;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 72px 32px 64px;
+  }
+
+  header {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 88px;
+  }
+
+  h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+    font-size: clamp(36px, 5.2vw, 64px);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin: 0 0 32px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .lede {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 0 0 96px;
+  }
+
+  h2 {
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+    font-size: clamp(26px, 3.2vw, 34px);
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    margin: 0 0 28px;
+  }
+  h2 em { font-style: italic; color: var(--accent); }
+
+  section { margin-bottom: 88px; }
+
+  /* ---- chart ---- */
+  .chart {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 0;
+  }
+  .chart .row {
+    display: grid;
+    grid-template-columns: 90px 1fr 80px;
+    align-items: center;
+    gap: 16px;
+    padding: 4px 0;
+  }
+  .chart .row .year { color: var(--ink-faint); letter-spacing: 0.08em; }
+  .chart .row .bar { position: relative; height: 6px; }
+  .chart .row .bar span {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: var(--ink);
+    opacity: 0.9;
+  }
+  .chart .row .bar span.accent { background: var(--accent); opacity: 1; }
+  .chart .row .bar span.soft { background: var(--ink-faint); opacity: 0.55; }
+  .chart .row .val { font-size: 10px; color: var(--ink-faint); text-align: right; letter-spacing: 0.06em; }
+  .chart .legend {
+    display: flex;
+    gap: 22px;
+    margin-top: 18px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .chart .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 10px; height: 10px;
+    margin-right: 6px;
+    vertical-align: -1px;
+  }
+  .chart .legend .research::before { background: var(--ink); }
+  .chart .legend .policy::before { background: var(--ink-faint); opacity: 0.55; }
+  .chart .legend .tech::before { background: var(--accent); }
+
+  /* ---- counters ---- */
+  .counters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .counter .num {
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+    font-size: clamp(36px, 4.6vw, 54px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+  }
+  .counter .num em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .counter .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 10px;
+    line-height: 1.55;
+  }
+
+  /* ---- bar chart ---- */
+  .barchart {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 32px 0 20px;
+  }
+  .barchart .plot {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 14px;
+    height: 260px;
+  }
+  .barchart .y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    text-align: right;
+    padding-bottom: 22px;
+  }
+  .barchart .y-axis span { line-height: 1; }
+  .barchart .canvas {
+    position: relative;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 22px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 8px;
+  }
+  .barchart .canvas::before,
+  .barchart .canvas::after,
+  .barchart .canvas .grid-line {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--rule);
+    pointer-events: none;
+  }
+  .barchart .canvas::before { top: 0; }
+  .barchart .canvas::after { top: 50%; }
+  .barchart .canvas .grid-line.q1 { top: 25%; }
+  .barchart .canvas .grid-line.q3 { top: 75%; }
+
+  .barchart .year-group {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+    max-width: 90px;
+  }
+  .barchart .stack {
+    width: 100%;
+    max-width: 54px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .barchart .seg {
+    width: 100%;
+    position: relative;
+  }
+  .barchart .seg.coursework { background: var(--ink-faint); opacity: 0.55; }
+  .barchart .seg.practice { background: var(--accent); }
+  .barchart .year-group .label {
+    position: absolute;
+    bottom: -22px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+  }
+  .barchart .year-group .total {
+    position: absolute;
+    font-family: "Fraunces", serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink);
+    top: -22px;
+    line-height: 1;
+  }
+  .barchart .year-group.ytd .label::after {
+    content: " · ytd";
+    color: var(--ink-faint);
+    opacity: 0.7;
+  }
+  .barchart .legend {
+    display: flex;
+    gap: 22px;
+    margin-top: 22px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .barchart .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 10px; height: 10px;
+    margin-right: 6px;
+    vertical-align: -1px;
+  }
+  .barchart .legend .lc::before { background: var(--ink-faint); opacity: 0.55; }
+  .barchart .legend .li::before { background: var(--accent); }
+  .barchart .note {
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    margin-top: 6px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ---- venn grid ---- */
+  .venn {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .venn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    position: relative;
+  }
+  .venn-cell {
+    padding: 32px 28px;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .venn-cell:nth-child(2n) { border-right: none; }
+  .venn-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .venn-cell .vkicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+  .venn-cell .vlabel {
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .venn-cell .vdetail {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .venn-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(30px, 6vw, 45px);
+    height: clamp(30px, 6vw, 45px);
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .venn-center em {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--accent);
+    margin-top: 2px;
+  }
+
+  /* ---- org / shipped list ---- */
+  .list-entries { border-top: 1px solid var(--rule); }
+  .list-entries .entry {
+    display: grid;
+    grid-template-columns: 80px 1fr 140px;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .list-entries .entry .year {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    padding-top: 3px;
+  }
+  .list-entries .entry .body .name {
+    font-family: "Fraunces", serif;
+    font-weight: 400;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .list-entries .entry .body .name em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .list-entries .entry .body .name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .list-entries .entry .body .name a:hover { border-color: var(--accent); color: var(--accent); }
+  .list-entries .entry .body .desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+  .list-entries .entry .role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: right;
+    line-height: 1.6;
+    padding-top: 5px;
+  }
+  .list-entries .logo-slot {
+    width: 56px;
+    height: 56px;
+    border: 1px dashed var(--rule);
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ---- closing links ---- */
+  .links {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+  }
+  .links a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .links a:hover { color: var(--accent); border-color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 48px 24px; }
+    header { margin-bottom: 56px; flex-direction: column; gap: 6px; }
+    .lede { margin-bottom: 64px; }
+    section { margin-bottom: 64px; }
+    .counters { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .chart .row { grid-template-columns: 70px 1fr 60px; gap: 10px; }
+    .list-entries .entry {
+      grid-template-columns: 60px 1fr;
+      grid-template-areas: "year body" ". role";
+      gap: 12px 16px;
+    }
+    .list-entries .entry .year { grid-area: year; }
+    .list-entries .entry .body { grid-area: body; }
+    .list-entries .entry .role { grid-area: role; text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <span>Julian Guidote</span>
+    <span>Montréal · MMXXVI</span>
+  </header>
+
+  <h1>It's time to build <em>legal infrastructure</em> for safe AI.</h1>
+
+  <p class="lede">
+    Trilingual lawyer and legal researcher. B.C.L. &amp; J.D. from McGill — bijural, common &amp; civil. 80+ research memos across seven areas of practice, a national-strategy contribution at IRCC, and privacy &amp; AI governance credentials (AIGP, CIPP/C). The through-line: <em style="color: var(--accent); font-style: italic;">I build legal frameworks that hold up under pressure</em>.
+  </p>
+
+  <section>
+    <h2>The <em>convergence.</em></h2>
+    <div class="chart">
+      <div class="row"><span class="year">2018–2021</span><span class="bar"><span style="left:0; width:32%"></span><span class="accent" style="left:32%; width:14%"></span></span><span class="val">cogsci + tech</span></div>
+      <div class="row"><span class="year">2021–2022</span><span class="bar"><span style="left:0; width:38%"></span><span class="soft" style="left:38%; width:22%"></span></span><span class="val">law yr 1 + union</span></div>
+      <div class="row"><span class="year">2022–2023</span><span class="bar"><span style="left:0; width:54%"></span><span class="soft" style="left:54%; width:18%"></span></span><span class="val">clinics + moot</span></div>
+      <div class="row"><span class="year">2023–2024</span><span class="bar"><span style="left:0; width:28%"></span><span class="soft" style="left:28%; width:46%"></span></span><span class="val">IRCC + briefs</span></div>
+      <div class="row"><span class="year">2024–2025</span><span class="bar"><span style="left:0; width:30%"></span><span class="soft" style="left:30%; width:20%"></span><span class="accent" style="left:50%; width:30%"></span></span><span class="val">articling + priv.</span></div>
+      <div class="row"><span class="year">2025–2026</span><span class="bar"><span style="left:0; width:44%"></span><span class="soft" style="left:44%; width:18%"></span><span class="accent" style="left:62%; width:28%"></span></span><span class="val">lit. + AI policy</span></div>
+      <div class="row"><span class="year">2026 →</span><span class="bar"><span style="left:0; width:16%"></span><span class="soft" style="left:16%; width:24%"></span><span class="accent" style="left:40%; width:50%"></span></span><span class="val">legal × AI</span></div>
+
+      <div class="legend">
+        <span class="research">research / writing</span>
+        <span class="policy">policy / advocacy</span>
+        <span class="tech">tech / AI / privacy</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sustained <em>legal research</em> output.</h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Estimated hours per year, split between structured coursework and applied legal practice.
+    </p>
+    <div class="barchart">
+      <div class="plot">
+        <div class="y-axis">
+          <span>1000h</span>
+          <span>750h</span>
+          <span>500h</span>
+          <span>250h</span>
+          <span>0</span>
+        </div>
+        <div class="canvas">
+          <div class="grid-line q1"></div>
+          <div class="grid-line q3"></div>
+
+          <!-- 2021: Law yr 1 starts Aug (~200h coursework) + union bargaining Fall (~120h practice) -->
+          <div class="year-group">
+            <div class="total">320</div>
+            <div class="stack">
+              <div class="seg practice" style="height: 30px;"></div>
+              <div class="seg coursework" style="height: 50px;"></div>
+            </div>
+            <div class="label">2021</div>
+          </div>
+
+          <!-- 2022: Law yr 1 end + yr 2 (~500h coursework) + LICM Summer/Fall clinics (~280h), Caplan Moot team -->
+          <div class="year-group">
+            <div class="total">780</div>
+            <div class="stack">
+              <div class="seg practice" style="height: 70px;"></div>
+              <div class="seg coursework" style="height: 125px;"></div>
+            </div>
+            <div class="label">2022</div>
+          </div>
+
+          <!-- 2023: Law yr 2/3 (~500h coursework) + Clinic + CCETHT + Copyright Moot (~360h practice) -->
+          <div class="year-group">
+            <div class="total">860</div>
+            <div class="stack">
+              <div class="seg practice" style="height: 90px;"></div>
+              <div class="seg coursework" style="height: 125px;"></div>
+            </div>
+            <div class="label">2023</div>
+          </div>
+
+          <!-- 2024: Law yr 3 + grad May (~250h) + IRCC Jun–Oct (~680h) + CBA Privacy (~60h) -->
+          <div class="year-group">
+            <div class="total">990</div>
+            <div class="stack">
+              <div class="seg practice" style="height: 185px;"></div>
+              <div class="seg coursework" style="height: 63px;"></div>
+            </div>
+            <div class="label">2024</div>
+          </div>
+
+          <!-- 2025: Bar School Jan–Dec (~420h coursework) + Articling (~500h) + Red Bonds LTFF -->
+          <div class="year-group">
+            <div class="total">920</div>
+            <div class="stack">
+              <div class="seg practice" style="height: 125px;"></div>
+              <div class="seg coursework" style="height: 105px;"></div>
+            </div>
+            <div class="label">2025</div>
+          </div>
+
+          <!-- 2026 YTD (Apr): Bar wrap-up (~80h) + Articling finish (~320h) -->
+          <div class="year-group ytd">
+            <div class="total">400</div>
+            <div class="stack">
+              <div class="seg practice" style="height: 80px;"></div>
+              <div class="seg coursework" style="height: 20px;"></div>
+            </div>
+            <div class="label">2026</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="legend">
+        <span class="lc">Coursework</span>
+        <span class="li">Practice</span>
+      </div>
+      <p class="note">
+        Coursework: McGill B.C.L. &amp; J.D. (2021–2024), École du Barreau du Québec (2025–2026). Practice: Legal Information Clinic of McGill / CSU caseworker; Canadian Centre to End Human Trafficking; IRCC policy analysis; Canadian Bar Association Privacy Section; Copyright Policy Moot; LTFF Red Bonds; Riendeau Avocats articling. 2026 is year-to-date.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>By the numbers.</h2>
+    <div class="counters">
+      <div class="counter">
+        <div class="num">80<em>+</em></div>
+        <div class="label">Legal research<br/>memos</div>
+      </div>
+      <div class="counter">
+        <div class="num">7</div>
+        <div class="label">Areas of<br/>practice</div>
+      </div>
+      <div class="counter">
+        <div class="num">20<em>+</em></div>
+        <div class="label">Memos to<br/>IRCC leadership</div>
+      </div>
+      <div class="counter">
+        <div class="num">40<em>h</em></div>
+        <div class="label">Collective<br/>bargaining round</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What makes me <em>different.</em></h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Four competencies, one legal mind.
+    </p>
+    <div class="venn">
+      <div class="venn-grid">
+        <div class="venn-cell">
+          <div class="vkicker">01 · Credentialed</div>
+          <div class="vlabel">Bijural training</div>
+          <div class="vdetail">B.C.L. &amp; J.D. (McGill, common + civil). École du Barreau 2026. AIGP + CIPP/C. CBA member. IAPP member.</div>
+        </div>
+        <div class="venn-cell">
+          <div class="vkicker">02 · Research-forward</div>
+          <div class="vlabel">Rigorous writing</div>
+          <div class="vdetail">Most prolific researcher in LICM's Summer 2022 cohort — 30 memos in eight weeks. Copyright Policy Moot Honourable Mention. Caplan Mooting Award for negotiation.</div>
+        </div>
+        <div class="venn-cell">
+          <div class="vkicker">03 · Policy-ready</div>
+          <div class="vlabel">Inside institutions</div>
+          <div class="vdetail">Policy analyst at IRCC on the national anti-trafficking strategy. Informed the CBA's OPC Children's Privacy Code response. LTFF AI Policy grantee.</div>
+        </div>
+        <div class="venn-cell">
+          <div class="vkicker">04 · Tech-literate</div>
+          <div class="vlabel">Code + law</div>
+          <div class="vdetail">AIGP &amp; CIPP/C. Python + JavaScript + SQL (Harvard CS50). AI-assisted discovery workflows saving 20+ hrs/week. Shipped an MCP server for AI phenomenology research.</div>
+        </div>
+        <div class="venn-center" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Seven areas of <em>practice.</em></h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Where 80+ research memos landed.
+    </p>
+    <div class="list-entries">
+
+      <div class="entry">
+        <div class="year">—</div>
+        <div class="body">
+          <div class="name">Criminal</div>
+          <div class="desc">Full-file management at Riendeau Avocats — intake to resolution, including technical cross-examination on peer-to-peer digital forensics. LICM memos.</div>
+        </div>
+        <div class="role">Litigation ·<br/>memos</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">—</div>
+        <div class="body">
+          <div class="name">Immigration &amp; <em>refugee</em></div>
+          <div class="desc">Lead reference at IRCC for the temporary resident permit for human trafficking victims. Steered IRCC's four-year contribution to the renewed National Strategy.</div>
+        </div>
+        <div class="role">Policy ·<br/>memos</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">—</div>
+        <div class="body">
+          <div class="name">Privacy &amp; <em>AI governance</em></div>
+          <div class="desc">AIGP + CIPP/C. Informed the CBA's response to the OPC's Children's Privacy Code Consultation. Published privacy analyses for 1Day Sooner / BlueDot on GPT deployment in human-challenge trials.</div>
+        </div>
+        <div class="role">Advisory ·<br/>briefs</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">—</div>
+        <div class="body">
+          <div class="name">Intellectual property</div>
+          <div class="desc">Honourable Mention at the Canadian Copyright Policy Moot (2024): a memo-to-cabinet proposing Indigenous self-governance of traditional knowledge under the Copyright Act.</div>
+        </div>
+        <div class="role">Moot ·<br/>memo</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">—</div>
+        <div class="body">
+          <div class="name">Labour &amp; <em>employment</em></div>
+          <div class="desc">Union President through a 40-hour collective bargaining round producing a four-year agreement. VP Partnerships, McGill Labour &amp; Employment Club. Clinic memos.</div>
+        </div>
+        <div class="role">Negotiation ·<br/>memos</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">—</div>
+        <div class="body">
+          <div class="name">Civil rights, housing, family</div>
+          <div class="desc">Caseworker at the Legal Information Clinic of McGill and Concordia Student Union. 80+ memos and caselaw reviews across civil rights, housing, and family law.</div>
+        </div>
+        <div class="role">Clinic ·<br/>memos</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Built &amp; <em>sustained.</em></h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Legal communities and institutions I founded, co-founded, or kept running.
+    </p>
+    <div class="list-entries">
+
+      <div class="entry">
+        <div class="year">2023 — 2024</div>
+        <div class="body">
+          <div class="name">Mental Health &amp; Wellness Committee</div>
+          <div class="desc">Founded the McGill Law Students' Association's first permanent mental-health committee. Chaired two faculty working groups; represented the committee at the Barreau du Québec and the English Montréal Bar. <em style="color: var(--ink-faint); font-size: 13px;">Outstanding Contribution Award, 2024.</em></div>
+        </div>
+        <div class="role">Founding<br/>lead member</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2022 — 2023</div>
+        <div class="body">
+          <div class="name">Legal Information Clinic — McGill &amp; CSU</div>
+          <div class="desc">Caseworker across two clinics. 80+ memos and caselaw reviews. Drafted organizational protocols on responding to domestic violence and client suicidality. Presented information sessions in employment and health law.</div>
+        </div>
+        <div class="role">Caseworker ·<br/>trainer</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2021 — 2022</div>
+        <div class="body">
+          <div class="name">SST de Jeunesse J'Écoute</div>
+          <div class="desc">Led the union's 40-hour collective bargaining through COVID, producing a four-year agreement. Chaired Negotiation / Bargaining and Labour Relations.</div>
+        </div>
+        <div class="role">President ·<br/>Secretary</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2021 — 2022</div>
+        <div class="body">
+          <div class="name">McGill Law Negotiation Club</div>
+          <div class="desc">Formal club competition team. Caplan Mooting Award for team corporate negotiation at the Canadian National Negotiation Competition (2022).</div>
+        </div>
+        <div class="role">Competition<br/>team</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects &amp; <em>experiments.</em></h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Working legal &amp; policy tools I've built — at the seam between law and AI.
+    </p>
+    <div class="list-entries">
+
+      <div class="entry">
+        <div class="year">2025</div>
+        <div class="body">
+          <div class="name"><a href="https://donjguido.github.io/Akomo-Notso-Quebec/">LexQC</a> — <em>Quebec Charter as open data</em></div>
+          <div class="desc">A reproducible pipeline publishing the Charte des droits et libertés de la personne as Akoma Ntoso 3.0 XML, FRBR URIs, a cross-reference graph, and an amendment timeline. MIT code, CC BY 4.0 data.</div>
+        </div>
+        <div class="role">Legal<br/>open data</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2024</div>
+        <div class="body">
+          <div class="name">Canadian Copyright Policy Moot</div>
+          <div class="desc">Memo-to-cabinet proposing Indigenous self-governance of traditional knowledge under the Copyright Act — drawing on international treaty obligations, Canadian law, and jurisprudence. Delivered to ISED &amp; Heritage Canada ministers. <em style="color: var(--ink-faint); font-size: 13px;">Honourable Mention — Memorandum &amp; Presentation.</em></div>
+        </div>
+        <div class="role">Memo-to-<br/>cabinet</div>
+      </div>
+
+      <div class="entry">
+        <div class="year">2024 — 2025</div>
+        <div class="body">
+          <div class="name">CBA Privacy Submission</div>
+          <div class="desc">Volunteer researcher with the Canadian Bar Association's Privacy Law Section. Informed the CBA's response to the Office of the Privacy Commissioner's Children's Privacy Code Consultation — comparing Canada's approach to the UK, Ireland, U.S., and California.</div>
+        </div>
+        <div class="role">Comparative<br/>research</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Shipped.</h2>
+    <p style="font-size: 15px; color: var(--ink-soft); max-width: 600px; margin: -16px 0 28px;">
+      Selected legal writing &amp; research I've published.
+    </p>
+    <div class="list-entries">
+
+      <div class="entry">
+        <div class="year">2025</div>
+        <div class="body">
+          <div class="name"><a href="https://drive.google.com/file/d/1as_6_BEeZx4HnsZR0XSV-MtOsWFO0a70/view?usp=drive_link">Red Bonds</a></div>
+          <div class="desc">A financing mechanism to incentivize safe &amp; ethical AI research globally. Funded by the Long Term Future Fund AI Policy Grant.</div>
+        </div>
+        <div class="role">Policy<br/>proposal</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="links">
+    <a href="../cv/cv.pdf">One-page CV</a>
+    <a href="https://linkedin.com/in/julian-guidote">LinkedIn</a>
+    <a href="mailto:julian@guidote.ca">julian [at] guidote.ca</a>
+  </div>
+  <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--ink-faint); text-transform: uppercase; margin-top: 28px;">Design by Claude · Content by Julian</p>
+
+</div>
+
+</body>
+</html>
