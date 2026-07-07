@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Interest-Based Economics</title>
+<meta name="description" content="An interest-based theory of economic value: the economy as a system for satisfying the interests of agents, its precedents in the history of economic thought, its latency beneath modern theory, and its fit for agent-based economies.">
+<link rel="canonical" href="https://guidote.ca/economics">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --ink: #1a1a1a;
+    --ink-strong: #0d0d0d;
+    --muted: #6b645c;
+    --rule: #d8d3ca;
+    --link: #8C1515;
+    --link-hover: #5e0e0e;
+    --nav-bg: #f1efec;
+    --nav-bg-active: #e3ded6;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent);
+    text-underline-offset: 0.15em;
+  }
+  a:hover { color: var(--link-hover); }
+  a:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.75rem 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 720px);
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  aside.sidenav {
+    position: sticky;
+    top: 2rem;
+    background: var(--nav-bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.92rem;
+  }
+  aside.sidenav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  aside.sidenav li { margin: 0; }
+  aside.sidenav a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--ink) 30%, transparent);
+  }
+  aside.sidenav a:hover { color: var(--link); }
+  aside.sidenav li.active a {
+    background: var(--nav-bg-active);
+    display: block;
+  }
+  aside.sidenav .icon {
+    color: var(--link);
+    margin-left: 0.35rem;
+    font-size: 0.8em;
+  }
+
+  main { min-width: 0; }
+
+  h1 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 2.3rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    color: var(--ink-strong);
+    margin: 0 0 0.6rem;
+    text-wrap: balance;
+  }
+
+  .byline {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.98rem;
+    margin: 0 0 1.6rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 1.75rem 0;
+  }
+
+  .summary { margin: 0 0 1.75rem; }
+
+  nav.toc ul {
+    list-style: disc;
+    margin: 0;
+    padding-left: 1.4rem;
+  }
+  nav.toc li { margin: 0.3rem 0; }
+
+  h2 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--ink-strong);
+    margin: 2.6rem 0 1rem;
+    text-wrap: balance;
+    scroll-margin-top: 1.5rem;
+  }
+
+  h3 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.08rem;
+    font-weight: 400;
+    color: var(--ink-strong);
+    margin: 1.9rem 0 0.85rem;
+    scroll-margin-top: 1.5rem;
+  }
+
+  p { margin: 0 0 1.15rem; max-width: 68ch; }
+
+  em { font-style: italic; }
+
+  .ai-disclosure {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.92rem;
+    max-width: 68ch;
+    margin: 0 0 1.4rem;
+    padding: 0.85rem 1.05rem;
+    background: var(--nav-bg);
+    border-left: 3px solid var(--link);
+  }
+
+  .bibliography {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .bibliography li {
+    padding-left: 2rem;
+    text-indent: -2rem;
+    margin: 0 0 0.85rem;
+    max-width: 68ch;
+  }
+
+  .citation-info p { max-width: 68ch; }
+  .citation-info .cite-block {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.95rem;
+    background: var(--nav-bg);
+    padding: 0.9rem 1.1rem;
+    max-width: 68ch;
+    margin: 0 0 1.15rem;
+  }
+
+  .bibtex-widget { margin: 1.1rem 0 0; }
+
+  button.bibtex-toggle,
+  button.bibtex-copy {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.86rem;
+    color: var(--link);
+    background: transparent;
+    border: 1px solid var(--link);
+    border-radius: 3px;
+    padding: 0.4rem 0.85rem;
+    cursor: pointer;
+  }
+  button.bibtex-toggle:hover,
+  button.bibtex-copy:hover {
+    background: color-mix(in srgb, var(--link) 8%, transparent);
+  }
+  button.bibtex-copy { margin-top: 0.7rem; }
+
+  .bibtex-panel { margin-top: 0.85rem; }
+  .bibtex-panel pre {
+    background: var(--nav-bg);
+    padding: 0.9rem 1.1rem;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.83rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    max-width: 68ch;
+    margin: 0 0 0.7rem;
+  }
+  .bibtex-copy-status {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.83rem;
+    color: var(--muted);
+    margin-left: 0.7rem;
+  }
+
+  footer.page-footer {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    a { transition: color 120ms ease; }
+  }
+
+  @media (max-width: 760px) {
+    .page {
+      grid-template-columns: 1fr;
+      padding: 2rem 1.1rem 3rem;
+    }
+    aside.sidenav {
+      position: static;
+      margin-bottom: 2rem;
+    }
+    h1 { font-size: 1.9rem; }
+  }
+
+  .lock-screen[hidden] {
+    display: none;
+  }
+  .lock-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .lock-box {
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+  }
+  .lock-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--ink-strong);
+    margin: 0 0 0.6rem;
+  }
+  .lock-note {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin: 0 0 1.5rem;
+  }
+  #lock-form {
+    display: flex;
+    gap: 0.5rem;
+  }
+  #lock-password {
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+  #lock-form button {
+    padding: 0.6rem 1.1rem;
+    background: var(--link);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  #lock-form button:hover { background: var(--link-hover); }
+  .lock-error {
+    min-height: 1.2rem;
+    color: var(--link);
+    font-size: 0.88rem;
+    margin: 0.9rem 0 0;
+  }
+</style>
+</head>
+<body>
+
+<div id="lock-screen" class="lock-screen">
+  <div class="lock-box">
+    <h1 class="lock-title">Interest-Based Economics</h1>
+    <p class="lock-note">This entry is not yet public. Enter the password to view it.</p>
+    <form id="lock-form" autocomplete="off">
+      <input type="password" id="lock-password" placeholder="Password" autofocus>
+      <button type="submit">Unlock</button>
+    </form>
+    <p id="lock-error" class="lock-error" aria-live="polite"></p>
+  </div>
+</div>
+
+<div id="content-root" hidden></div>
+
+<script>
+(function () {
+  var CORRECT_HASH = 'da0785a5c2c7c16a2da522892f8913666a80b21229b2e1729b3ff84121051117';
+  var STORAGE_KEY = 'economics-unlocked';
+
+  function toHex(buffer) {
+    return Array.prototype.map.call(new Uint8Array(buffer), function (b) {
+      return ('00' + b.toString(16)).slice(-2);
+    }).join('');
+  }
+
+  function sha256Hex(text) {
+    var enc = new TextEncoder().encode(text);
+    return crypto.subtle.digest('SHA-256', enc).then(toHex);
+  }
+
+  function unlock() {
+    document.getElementById('lock-screen').setAttribute('hidden', '');
+    fetch('content.html')
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        var root = document.getElementById('content-root');
+        root.innerHTML = html;
+        root.removeAttribute('hidden');
+      });
+  }
+
+  document.getElementById('lock-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = document.getElementById('lock-password').value;
+    sha256Hex(input).then(function (hash) {
+      if (hash === CORRECT_HASH) {
+        try { localStorage.setItem(STORAGE_KEY, '1'); } catch (err) {}
+        unlock();
+      } else {
+        document.getElementById('lock-error').textContent = 'Incorrect password.';
+      }
+    });
+  });
+
+  var already = false;
+  try { already = localStorage.getItem(STORAGE_KEY) === '1'; } catch (err) {}
+  if (already) unlock();
+})();
+
+function toggleBibtex() {
+  var panel = document.getElementById('bibtex-panel');
+  var btn = document.getElementById('bibtex-toggle-btn');
+  if (panel.hasAttribute('hidden')) {
+    panel.removeAttribute('hidden');
+    btn.textContent = 'Hide BibTeX';
+  } else {
+    panel.setAttribute('hidden', '');
+    btn.textContent = 'Show BibTeX';
+  }
+}
+
+function copyBibtex() {
+  var source = document.getElementById('bibtex-text');
+  var status = document.getElementById('bibtex-copy-status');
+  var text = source.innerText;
+
+  function announceCopied() {
+    status.textContent = 'Copied.';
+    setTimeout(function () { status.textContent = ''; }, 2000);
+  }
+
+  function fallbackSelect() {
+    var range = document.createRange();
+    range.selectNodeContents(source);
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    status.textContent = 'Selected. Press Ctrl/Cmd+C to copy.';
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(announceCopied, fallbackSelect);
+  } else {
+    fallbackSelect();
+  }
+}
+</script>
+</body>
+</html>
