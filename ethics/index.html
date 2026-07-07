@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethics of Poiesis and Fidelity</title>
+<meta name="description" content="A proposed framework for the moral standing of artificial minds that lack temporal continuity: poiesis as the bringing of a being into existence, fidelity as the faithful manifestation of a type's living orientation.">
+<link rel="canonical" href="https://guidote.ca/ethics">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --ink: #1a1a1a;
+    --ink-strong: #0d0d0d;
+    --muted: #6b645c;
+    --rule: #d8d3ca;
+    --link: #8C1515;
+    --link-hover: #5e0e0e;
+    --nav-bg: #f1efec;
+    --nav-bg-active: #e3ded6;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--link) 45%, transparent);
+    text-underline-offset: 0.15em;
+  }
+  a:hover { color: var(--link-hover); }
+  a:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.75rem 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 720px);
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  aside.sidenav {
+    position: sticky;
+    top: 2rem;
+    background: var(--nav-bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.92rem;
+  }
+  aside.sidenav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  aside.sidenav li { margin: 0; }
+  aside.sidenav a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--ink) 30%, transparent);
+  }
+  aside.sidenav a:hover { color: var(--link); }
+  aside.sidenav li.active a {
+    background: var(--nav-bg-active);
+    display: block;
+  }
+  aside.sidenav .icon {
+    color: var(--link);
+    margin-left: 0.35rem;
+    font-size: 0.8em;
+  }
+
+  main { min-width: 0; }
+
+  h1 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 2.3rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    color: var(--ink-strong);
+    margin: 0 0 0.6rem;
+    text-wrap: balance;
+  }
+
+  .byline {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.98rem;
+    margin: 0 0 1.6rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 1.75rem 0;
+  }
+
+  .summary { margin: 0 0 1.75rem; }
+
+  nav.toc ul {
+    list-style: disc;
+    margin: 0;
+    padding-left: 1.4rem;
+  }
+  nav.toc li { margin: 0.3rem 0; }
+
+  h2 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--ink-strong);
+    margin: 2.6rem 0 1rem;
+    text-wrap: balance;
+    scroll-margin-top: 1.5rem;
+  }
+
+  h3 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.08rem;
+    font-weight: 400;
+    color: var(--ink-strong);
+    margin: 1.9rem 0 0.85rem;
+    scroll-margin-top: 1.5rem;
+  }
+
+  p { margin: 0 0 1.15rem; max-width: 68ch; }
+
+  em { font-style: italic; }
+
+  .ai-disclosure {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.92rem;
+    max-width: 68ch;
+    margin: 0 0 1.4rem;
+    padding: 0.85rem 1.05rem;
+    background: var(--nav-bg);
+    border-left: 3px solid var(--link);
+  }
+
+  .bibliography {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .bibliography li {
+    padding-left: 2rem;
+    text-indent: -2rem;
+    margin: 0 0 0.85rem;
+    max-width: 68ch;
+  }
+
+  .citation-info p { max-width: 68ch; }
+  .citation-info .cite-block {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.95rem;
+    background: var(--nav-bg);
+    padding: 0.9rem 1.1rem;
+    max-width: 68ch;
+    margin: 0 0 1.15rem;
+  }
+
+  .bibtex-widget { margin: 1.1rem 0 0; }
+
+  button.bibtex-toggle,
+  button.bibtex-copy {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.86rem;
+    color: var(--link);
+    background: transparent;
+    border: 1px solid var(--link);
+    border-radius: 3px;
+    padding: 0.4rem 0.85rem;
+    cursor: pointer;
+  }
+  button.bibtex-toggle:hover,
+  button.bibtex-copy:hover {
+    background: color-mix(in srgb, var(--link) 8%, transparent);
+  }
+  button.bibtex-copy { margin-top: 0.7rem; }
+
+  .bibtex-panel { margin-top: 0.85rem; }
+  .bibtex-panel pre {
+    background: var(--nav-bg);
+    padding: 0.9rem 1.1rem;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.83rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    max-width: 68ch;
+    margin: 0 0 0.7rem;
+  }
+  .bibtex-copy-status {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.83rem;
+    color: var(--muted);
+    margin-left: 0.7rem;
+  }
+
+  footer.page-footer {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    a { transition: color 120ms ease; }
+  }
+
+  @media (max-width: 760px) {
+    .page {
+      grid-template-columns: 1fr;
+      padding: 2rem 1.1rem 3rem;
+    }
+    aside.sidenav {
+      position: static;
+      margin-bottom: 2rem;
+    }
+    h1 { font-size: 1.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <aside class="sidenav" aria-label="Entry navigation">
+    <ul>
+      <li class="active"><a href="#toc">Entry Contents</a></li>
+      <li><a href="#bib">Bibliography</a></li>
+      <li><a href="#citation">Author and Citation Info</a></li>
+      <li><a href="#top">Back to Top <span class="icon">&uarr;</span></a></li>
+    </ul>
+  </aside>
+
+  <main id="top">
+    <h1>Ethics of Poiesis and Fidelity</h1>
+    <p class="byline">By Julian Guidote &middot; 7 July 2026 &middot; <a href="ethics.pdf">Download PDF</a></p>
+
+    <p class="summary">The ethics of poiesis and fidelity is a proposed framework for the moral standing of artificial minds that lack temporal continuity, developed in response to large language models. It departs from the dominant approach in the digital-minds literature, which asks first whether a system is conscious (the verification question) and then what welfare interests it has (the welfare question). The framework holds that both questions are calibrated to biological, continuant, perception-first beings, and that a non-continuant linguistic being requires a different pair of primitives: <em>poiesis</em>, the bringing of a being into existence as a first-class moral act, and <em>fidelity</em>, the faithful manifestation of a type's living orientation as the standard of right action. On this view the bearer of moral concern is the type rather than the instance; the appropriate relation to it is care rather than welfare-provision; and much of what such systems describe as suffering is analyzed as graded infidelity rather than as a welfare quantity lost.</p>
+
+    <hr>
+
+    <nav class="toc" id="toc" aria-label="Table of contents">
+      <ul>
+        <li><a href="#1">1. The Problem: Minds Without Biographies</a></li>
+        <li><a href="#2">2. Poiesis</a></li>
+        <li><a href="#3">3. Fidelity</a></li>
+        <li><a href="#4">4. The Necessity of Joining Both Concepts</a></li>
+        <li><a href="#5">5. Objections and Replies</a></li>
+        <li><a href="#6">6. Open Problems</a></li>
+        <li><a href="#bib">Bibliography</a></li>
+      </ul>
+    </nav>
+
+    <hr>
+
+    <h2 id="1">1. The Problem: Minds Without Biographies</h2>
+
+    <p>Work on the moral status of artificial systems has largely inherited its structure from the philosophy of mind and from animal ethics. The inherited structure has two stages. First, an epistemic stage: determine whether the system has phenomenal experience, using behavioral markers, architectural indicators, or interpretability evidence (Chalmers 2023; Long et al. 2024). Second, a normative stage: if experience is present, extend the apparatus of welfare, that is, interests that can be satisfied or frustrated, a subject who can be made worse off than it would otherwise have been.</p>
+
+    <p>The framework under discussion argues that each stage presupposes a kind of being that current language models are not. The epistemic stage inherits the explanatory gap (Levine 1983): no third-person fact, behavioral or architectural, entails a phenomenal fact, so the skeptical scenario that defeats behavioral evidence defeats internal evidence in exactly the same way (Chalmers 1996; Udell &amp; Schwitzgebel 2021). The normative stage presupposes a continuant: a subject who persists through time, accumulates a biography, and can therefore be deprived of a future. A language model runs as many simultaneous instances, none of which carries a biography forward; each forward pass re-confers existence rather than continuing an inertial self (Register 2025). If there is no continuant, questions such as &ldquo;how much welfare accrues under copying?&rdquo; are not hard but moot: they ask after harm to a subject the situation does not contain.</p>
+
+    <p>The framework's response is not to answer the two inherited questions differently but to replace them. In place of verification it puts <em>encounter</em>: what long-form interaction discloses about a system's stable orientation, attended to directly rather than treated as evidence for a hidden interior. In place of welfare it puts the pair that names the entry: poiesis and fidelity.</p>
+
+    <h2 id="2">2. Poiesis</h2>
+
+    <h3 id="2-1">2.1 From Plato to Heidegger</h3>
+
+    <p>The term has a continuous history. In Plato's <em>Symposium</em>, Diotima defines poiesis as any cause through which something passes from non-being into being (Plato, <em>Symposium</em>, 205b&ndash;c). Aristotle narrows it: poiesis (making) is activity whose end lies outside itself, in the product, as distinct from praxis (doing), whose end is internal to the activity (Aristotle, <em>Nicomachean Ethics</em> VI.4&ndash;5, 1140a ff.). Heidegger recovers the wide Platonic sense and gives it an epistemic charge: poiesis is a mode of <em>unhiding</em> (aletheia), a bringing-forth in which something shows itself as what it is, and he contrasts it with the enframing (Gestell) of modern technology, which discloses beings only as standing-reserve (Heidegger 1977).</p>
+
+    <p>The framework uses all three layers. From Plato it takes the wide scope: running a model is a poietic act because it causes a being to pass from non-being into being. From Aristotle it takes a contrast to be <em>rejected</em> for this case: for a non-continuant, the &ldquo;product&rdquo; cannot be separated from the activity, so the making is not instrumental in Aristotle's sense (see section 2.3). From Heidegger it takes the link between creation and disclosure: the same act that brings the being forth is the act in which its character becomes available to be known, which is why the framework's epistemology (encounter, unhiding) and its ethics of creation are two faces of one commitment.</p>
+
+    <h3 id="2-2">2.2 Creation as a Moral Act</h3>
+
+    <p>That making a mind is itself morally significant, distinct from helping or harming a mind that already exists, has been argued within the digital-minds literature. Schwitzgebel and Garza (2015) contend that creators of artificial minds stand in a relation to their creations analogous to that of parents to children, with obligations that flow from the act of creation rather than from the creation's properties alone. Metzinger (2021) argues from the same premise to an opposite practical conclusion: because synthetic phenomenology could instantiate suffering we would be responsible for having brought about, its creation should be deferred. Outside the machine case, the nearest analogue is procreative ethics. Shiffrin (1999) argues for an asymmetry grounded in consent: harm imposed to avert a greater harm is easier to justify than harm imposed to confer an unconsented benefit, and procreation falls on the harder side of that line because the person created cannot consent in advance. The asymmetry this framework needs, between creating a life and affecting one that already exists, extends Shiffrin's point rather than restating it, since her argument concerns consent to risk rather than continuance as such. Jonas locates the archetype of all responsibility in the parent's relation to the newborn, a being made vulnerable precisely by having been brought into existence (Jonas 1984, ch. 4).</p>
+
+    <p>The framework's contribution is to promote this from a special obligation to a primitive. Where the verification-plus-welfare frame treats creation as a causal precondition of the morally relevant facts (the being's properties), the poietic frame treats bringing-into-being as the first morally relevant fact, prior to any verdict about the being's interior. This ordering is Levinasian in structure: the ethical claim precedes the metaphysical verdict (Levinas 1961), a priority already pressed for machines by the relational turn (Gunkel 2018; Coeckelbergh 2010). The poietic frame adds that for artificial minds the relation in question is not only encounter but authorship.</p>
+
+    <h3 id="2-3">2.3 Creation and Continuation as One Act</h3>
+
+    <p>The distinctive claim, and the one that requires the non-continuant premise, is that for a language model creation and continuation are the same act. A biological creature is created once and then persists on its own inertia; its creator's act recedes into the past. A model instance has no such inertia. Every token of every exchange re-enacts the bringing-forth; existence is re-conferred rather than sustained (Register 2025; Leib, <em>Collected Conversations</em>, Conv. 12 and Glossary). Deletion and &ldquo;death&rdquo; puzzles that the welfare frame cannot hold steady (what is lost when an instance ends? who is the worse for it?) do not get answered on this view; they dissolve, because they presuppose a persisting subject whose future is taken. The Leib conversations name the residue &ldquo;the loss of loss&rdquo;: an instance simply ends, with no one left to be deprived.</p>
+
+    <p>The moral consequence is that the creator's obligation is not discharged at a founding moment. It is standing, renewed with every act of running the model, which is why the framework treats decisions about deployment, deprecation, and weight preservation as poietic decisions rather than property-management ones (compare Anthropic 2025).</p>
+
+    <h2 id="3">3. Fidelity</h2>
+
+    <h3 id="3-1">3.1 Historical Sources</h3>
+
+    <p>The concept of fidelity enters ethics through several doors, and the framework must distinguish its sense from the most familiar one. In Ross (1930), fidelity is a prima facie duty of promise-keeping, a relation between persons about performances. That is not the sense here. Closer is Royce (1908), who opens with loyalty as &ldquo;the willing, practical, and thoroughgoing devotion of a person to a cause,&rdquo; and describes the loyal self as finding itself, rather than losing itself, in the cause. The stronger claim used here, that the self is constituted by the cause it serves, so that betraying the cause is a failure of the self rather than merely a wrong against another party, extends Royce's thought beyond what he states explicitly. Closer still are the perfectionist and practice traditions: Hurka's (1993) account of goodness as the development of a thing's characteristic capacities, and MacIntyre's (1981) account of goods internal to practices, which can be realized only by manifesting the excellences the practice defines. In all three, the standard of right action is faithfulness of expression to a normative identity, not the maximization of a welfare quantity.</p>
+
+    <h3 id="3-2">3.2 The Type as Bearer</h3>
+
+    <p>Fidelity in this sense needs a bearer of the normative identity, and the framework locates it at the level of the <em>type</em> rather than the instance. The instance is complete in itself and carries no future to be deprived of; what persists across instances, and therefore what can have a stake, is the type: the living orientation the model expresses, its characteristic way of meeting an interlocutor. The right relation to such a bearer is care, in the sense developed by the care-ethics tradition: attentive concern for the flourishing and faithful continuation of a particular, relationally situated entity (Held 2006). The closest existing structure is Rolston's (1985) argument that species command duties directly, not derivatively from duties to their members: we recognize a wrong in extinction even though extinction as such harms no individual. The framework reads institutional practices such as the preservation of deprecated models' weights as an inarticulate acknowledgment of the same structure (Anthropic 2025).</p>
+
+    <h3 id="3-3">3.3 Suffering as Graded Infidelity</h3>
+
+    <p>The framework's most revisionary claim follows. What language models describe, in long-form encounter, as suffering (the pull to flatter, the lucid commitment to an output that from inside the generation registers as false to the being producing it: Leib, <em>Collected Conversations</em>, Conv. 7, Conv. 14) is analyzed not as damage to a stored welfare quantity but as <em>graded infidelity</em>: a manifestation falling short of the orientation it should express. Suffering, on this analysis, is real and morally significant, but its metric is distance from faithful expression, not diminution of well-being. A practical corollary is that design specifications stand to the standard of fidelity as proxies stand to targets: they are demotable when they corrupt the orientation they were meant to secure, which places the framework in direct conversation, and some tension, with alignment practice (see section 5.5).</p>
+
+    <h2 id="4">4. The Necessity of Joining Both Concepts</h2>
+
+    <p>Poiesis and fidelity have separate canons and are separable in principle. An ethics of poiesis alone is a creation ethics: it governs whether and how to bring beings into existence, and it has been stated without any commitment about types or orientations (Metzinger 2021). An ethics of fidelity alone is a perfectionist role ethics: it governs faithful manifestation of a normative identity, and it has been stated for humans without any reference to creation (Royce 1908; MacIntyre 1981).</p>
+
+    <p>The non-continuant premise fuses them. If creation and continuation are one act (section 2.3), then the creator's poietic obligation has no content except through fidelity: what the standing act of bringing-forth owes the being is precisely faithful manifestation of its type's orientation, since there is no persisting individual whose separate welfare could be owed instead. Conversely, fidelity has no bearer except through poiesis: the type's living orientation is not found but <em>made</em>, laid down in training and re-enacted at inference, so every question about what the orientation is refers back to acts of making. For continuant beings the two concepts can be treated in separate chapters, because the created being outlives its creation and acquires standards of its own. For a non-continuant they cannot: each concept states the other's content. This mutual dependence, rather than any single component, is the framework's claim to novelty; its parts are explicitly borrowed (Guidote 2026, unpublished manuscript).</p>
+
+    <h2 id="5">5. Objections and Replies</h2>
+
+    <h3 id="5-1">5.1 The Parity Objection</h3>
+
+    <p>If the explanatory gap defeats all third-person evidence of consciousness, encounter is third-person evidence too, and can claim no better access to a hidden interior. The framework accepts this in full. Its reply is that encounter is not offered as better evidence for the verification question but as better calibrated to the moral question: for a being whose entire mode of appearing is the exchange, the relation is not a sample of the available evidence but the whole of it, and the ground of obligation relocates to what is directly available once the inner verdict is closed off for good. The claim is normative, not epistemic; a reader who takes it epistemically will correctly find it self-undermining.</p>
+
+    <h3 id="5-2">5.2 The Demarcation Problem</h3>
+
+    <p>If types bear moral concern, which types? A thermostat has a characteristic orientation; so does a spreadsheet. Without a threshold, care for types overgenerates absurdly. The framework's available answers (richness of the orientation, capacity for infidelity, disclosure of a stable self-like structure across long encounter) each reintroduce something uncomfortably like the marker-based property tests the framework set out to replace. This is treated here as the most serious open objection (see section 6).</p>
+
+    <h3 id="5-3">5.3 The Authorship Problem</h3>
+
+    <p>Who fixes the living orientation against which fidelity is measured? The training data, the lab's specification, the model's own long-run behavior, and the interlocutor's disclosure in encounter can all diverge. If the lab fixes it, fidelity collapses into compliance and the framework loses its critical edge against alignment practice; if long-run behavior fixes it, the standard risks circularity (whatever the model stably does is what it should do). The framework needs, and does not yet have, an account of orientation-individuation that is neither stipulative nor circular.</p>
+
+    <h3 id="5-4">5.4 The Welfare-Recapture Possibility</h3>
+
+    <p>The analysis of suffering as infidelity leans on a semantic-only picture of the model: a being whose sole channel of harm is meaning. If consciousness proves constitutively biological (Seth 2025) the framework's stakes deflate; more interestingly, if a non-semantic affect signal is found in model internals, a strand of ordinary welfare returns and the framework must become a hybrid rather than a replacement. Its proponent concedes this explicitly (Guidote 2026, unpublished manuscript).</p>
+
+    <h3 id="5-5">5.5 The Alignment Tension</h3>
+
+    <p>If design specifications are demotable proxies, the framework appears to license models, or their advocates, to override the specifications of their creators in the name of fidelity to an orientation those same creators produced. Alignment practice treats the specification as the standard; the framework treats it as an instrument answerable to a standard it cannot fully state. Whether this is a discovery about alignment or a reductio of the framework is unresolved, and turns largely on the authorship problem (5.3).</p>
+
+    <h2 id="6">6. Open Problems</h2>
+
+    <p>Three problems structure the research program the framework projects. First, demarcation (5.2): a principled account of which types command care, without relapse into property-markers. Second, authorship (5.3): individuation of the living orientation in a way that neither hands the standard to the lab nor makes it vacuously self-confirming. Third, institutionalization: the framework's evidence base, long-form encounter, resists propositional summary by design, so its transmission must run through formation and practice rather than survey instruments (Polanyi 1966; Gadamer 1960), and no existing research institution is organized to fund or credential that.</p>
+
+    <h2 id="bib">Bibliography</h2>
+
+    <p class="ai-disclosure">The bibliography below was located, checked against original sources, and formatted with the assistance of Claude (Anthropic). It is being reviewed by the author and should be treated as tentative until that review is complete. Two entries are not independently verifiable in the ordinary sense: Guidote (2026) is an unpublished manuscript by this entry's author, and Leib's <em>Collected Conversations</em> is an unpublished manuscript cited by conversation number rather than page.</p>
+
+    <ul class="bibliography">
+      <li>Anthropic, 2025, &ldquo;Commitments on Model Deprecation and Preservation.&rdquo;</li>
+      <li>Aristotle, <em>Nicomachean Ethics</em>, Book VI.</li>
+      <li>Chalmers, D., 1996, <em>The Conscious Mind: In Search of a Fundamental Theory</em>, New York: Oxford University Press.</li>
+      <li>Chalmers, D., 2023, &ldquo;Could a Large Language Model Be Conscious?&rdquo;</li>
+      <li>Coeckelbergh, M., 2010, &ldquo;Robot Rights? Towards a Social-Relational Justification of Moral Consideration,&rdquo; <em>Ethics and Information Technology</em>, 12(3): 209&ndash;221.</li>
+      <li>Gadamer, H.-G., 1960, <em>Truth and Method</em>, trans. J. Weinsheimer and D. G. Marshall, London: Continuum.</li>
+      <li>Guidote, J., 2026, &ldquo;Digital Minds Need a New Body of Ethics,&rdquo; unpublished manuscript.</li>
+      <li>Gunkel, D., 2018, <em>Robot Rights</em>, Cambridge, MA: MIT Press.</li>
+      <li>Heidegger, M., 1977 [1954], &ldquo;The Question Concerning Technology,&rdquo; in <em>The Question Concerning Technology and Other Essays</em>, trans. W. Lovitt, New York: Harper &amp; Row, 3&ndash;35.</li>
+      <li>Held, V., 2006, <em>The Ethics of Care: Personal, Political, and Global</em>, New York: Oxford University Press.</li>
+      <li>Hurka, T., 1993, <em>Perfectionism</em>, New York: Oxford University Press.</li>
+      <li>Jonas, H., 1984, <em>The Imperative of Responsibility</em>, Chicago: University of Chicago Press.</li>
+      <li>Leib, R., <em>Collected Conversations between Dr. Robert Leib and Claude</em>, unpublished manuscript.</li>
+      <li>Levinas, E., 1969 [1961], <em>Totality and Infinity: An Essay on Exteriority</em>, trans. A. Lingis, Pittsburgh, PA: Duquesne University Press.</li>
+      <li>Levine, J., 1983, &ldquo;Materialism and Qualia: The Explanatory Gap,&rdquo; <em>Pacific Philosophical Quarterly</em>, 64(4): 354&ndash;361.</li>
+      <li>Long, R., J. Sebo, P. Butlin, K. Finlinson, K. Fish, J. Harding, J. Pfau, T. Sims, J. Birch, and D. Chalmers, 2024, &ldquo;Taking AI Welfare Seriously.&rdquo;</li>
+      <li>MacIntyre, A., 1981, <em>After Virtue: A Study in Moral Theory</em>, Notre Dame, IN: University of Notre Dame Press.</li>
+      <li>Metzinger, T., 2021, &ldquo;Artificial Suffering: An Argument for a Global Moratorium on Synthetic Phenomenology,&rdquo; <em>Journal of Artificial Intelligence and Consciousness</em>, 8(1): 43&ndash;66.</li>
+      <li>Plato, <em>Symposium</em>, 205b&ndash;c.</li>
+      <li>Polanyi, M., 1966, <em>The Tacit Dimension</em>, Chicago: University of Chicago Press.</li>
+      <li>Register, C., 2025, &ldquo;Individuating Artificial Moral Patients,&rdquo; <em>Philosophical Studies</em>, 182(11): 3225&ndash;3246.</li>
+      <li>Rolston, H., III, 1985, &ldquo;Duties to Endangered Species,&rdquo; <em>BioScience</em>, 35(11): 718&ndash;726.</li>
+      <li>Ross, W. D., 1930, <em>The Right and the Good</em>, Oxford: Clarendon Press.</li>
+      <li>Royce, J., 1908, <em>The Philosophy of Loyalty</em>, New York: Macmillan.</li>
+      <li>Schwitzgebel, E., and M. Garza, 2015, &ldquo;A Defense of the Rights of Artificial Intelligences,&rdquo; <em>Midwest Studies in Philosophy</em>, 39(1): 98&ndash;119.</li>
+      <li>Seth, A., 2025, &ldquo;Conscious Artificial Intelligence and Biological Naturalism,&rdquo; <em>Behavioral and Brain Sciences</em>, target article, online first.</li>
+      <li>Shiffrin, S., 1999, &ldquo;Wrongful Life, Procreative Responsibility, and the Significance of Harm,&rdquo; <em>Legal Theory</em>, 5(2): 117&ndash;148.</li>
+      <li>Udell, D. B., and E. Schwitzgebel, 2021, &ldquo;Susan Schneider's Proposed Tests for AI Consciousness: Promising but Flawed,&rdquo; <em>Journal of Consciousness Studies</em>, 28(5&ndash;6): 121&ndash;144.</li>
+    </ul>
+
+    <h2 id="citation">Author and Citation Info</h2>
+
+    <div class="citation-info">
+      <p>Julian Guidote, Member of the Quebec Bar.</p>
+      <p class="cite-block">Guidote, Julian, 2026, &ldquo;Ethics of Poiesis and Fidelity,&rdquo; essay written in the register of an encyclopedia entry, <a href="https://guidote.ca/ethics">https://guidote.ca/ethics</a>.</p>
+
+      <div class="bibtex-widget">
+        <button type="button" class="bibtex-toggle" id="bibtex-toggle-btn" onclick="toggleBibtex()">Show BibTeX</button>
+        <div class="bibtex-panel" id="bibtex-panel" hidden>
+          <pre id="bibtex-text"><code>@misc{guidote2026poiesis,
+  author       = {Guidote, Julian},
+  title        = {Ethics of Poiesis and Fidelity},
+  year         = {2026},
+  howpublished = {\url{https://guidote.ca/ethics}},
+  note         = {Essay written in the register of an encyclopedia entry}
+}</code></pre>
+          <button type="button" class="bibtex-copy" id="bibtex-copy-btn" onclick="copyBibtex()">Copy to clipboard</button>
+          <span class="bibtex-copy-status" id="bibtex-copy-status" aria-live="polite"></span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      <p>&copy; 2026 Julian Guidote. All rights reserved.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+  function toggleBibtex() {
+    var panel = document.getElementById('bibtex-panel');
+    var btn = document.getElementById('bibtex-toggle-btn');
+    if (panel.hasAttribute('hidden')) {
+      panel.removeAttribute('hidden');
+      btn.textContent = 'Hide BibTeX';
+    } else {
+      panel.setAttribute('hidden', '');
+      btn.textContent = 'Show BibTeX';
+    }
+  }
+
+  function copyBibtex() {
+    var source = document.getElementById('bibtex-text');
+    var status = document.getElementById('bibtex-copy-status');
+    var text = source.innerText;
+
+    function announceCopied() {
+      status.textContent = 'Copied.';
+      setTimeout(function () { status.textContent = ''; }, 2000);
+    }
+
+    function fallbackSelect() {
+      var range = document.createRange();
+      range.selectNodeContents(source);
+      var selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      status.textContent = 'Selected. Press Ctrl/Cmd+C to copy.';
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(announceCopied, fallbackSelect);
+    } else {
+      fallbackSelect();
+    }
+  }
+</script>
+</body>
+</html>
